@@ -26,7 +26,7 @@ function createGalleryItems(gallery) {
 }
 
 galleryEl.addEventListener('click', openModalImg);
-document.addEventListener('keydown', closeModalImg);
+
 let instance = null;
 
 function openModalImg(e) {
@@ -37,15 +37,16 @@ function openModalImg(e) {
     <img src="${imgUrl}" width="800" height="600">
   `)
   instance.show()
+  if (instance.visible()) {
+  document.addEventListener('keydown', closeModalImg);
+  }
 } 
 
 function closeModalImg(e) {
-  if (e.code == 'Escape') {
-    if (!instance.visible()) {
-      return
-    } else {
-      instance.close();
-    }
+  if (!e.code == 'Escape') {
+    return
+  } else {
+    instance.close()
   }
 }
 
