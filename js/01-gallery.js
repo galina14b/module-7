@@ -35,11 +35,16 @@ function openModalImg(e) {
 
   instance = basicLightbox.create(`
     <img src="${imgUrl}" width="800" height="600">
-  `)
-  instance.show()
-  if (instance.visible()) {
-  document.addEventListener('keydown', closeModalImg);
-  }
+  `, {
+    onShow() {
+      document.addEventListener('keydown', closeModalImg)
+    },
+
+    onClose() {
+      document.removeEventListener('keydown', closeModalImg)
+    }
+  })
+  instance.show();
 } 
 
 function closeModalImg(e) {
